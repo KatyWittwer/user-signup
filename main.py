@@ -19,13 +19,8 @@ import webapp2
 import re
 import cgi
 
-#<!DOCTYPE html>
-#<html lang=en>
-#<head>
-#    <title>UserSignup</title>
-#    <link rel='stylesheet' type='text/css' href='stylesheet.css'/>
-#</head>
-#<body>
+s = cgi.escape( """& < >""" )
+
 form="""
     <h2>User Signup</h2>
     <form method='post'>
@@ -48,9 +43,6 @@ form="""
         <input type='submit'>
     </form>
 """
-
-    #</body>
-#</html>
 
 USER_RE = re.compile(r"^[a-zA-Z0-9_-]{3,20}$")
 def valid_username(username):
@@ -107,7 +99,7 @@ class WelcomePage(webapp2.RequestHandler):
     def get(self):
         username = self.request.get('username')
         if valid_username(username):
-            self.response.out.write('Welcome ' + username)
+            self.response.out.write('Welcome, ' + username +"!")
         else:
             self.redirect('/')
 
